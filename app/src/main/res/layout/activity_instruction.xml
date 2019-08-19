@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Instruction">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Instructions"
+        android:textSize="36dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:gravity = "center"
+        android:textSize = "16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:text="Hello! Welcome to the Corsi Block Game app. This app is intended to keep track of and ddetermine your spatial short term memory using a test called the Corsi Block Tapping Test. First, you must register an account by clicking the register button on the home page. After logging in, you will be able to play the game. On the game, there are 9 blocks placed randomly on the screen. They will ligiht up in a pattern than you must repeat by tapping on them after the sequence has ended. You get two tries for each level. If you complete the level, the length of the new sequence increases by one block. If you complete the level with 9 blocks, you win the game. The block span number is the length of the longest sequence that you have completed, and the total score is your blockspan multiplied by the number of sequences you have correctly repeated. You can also choose to email your scores or write notes about how you are physically and mentally feeling at the time of the test, which will be saved in a file under your name. Have fun!" />
+
+    <Button
+        android:id="@+id/buttonReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginLeft="101dp"
+        android:layout_marginBottom="0dp"
+        android:text="Return to Login Screen" />
+
+
+</RelativeLayout>

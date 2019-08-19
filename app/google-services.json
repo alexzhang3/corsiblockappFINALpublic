@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "848588342560",
+    "firebase_url": "https://corsiblockapp.firebaseio.com",
+    "project_id": "corsiblockapp",
+    "storage_bucket": "corsiblockapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848588342560:android:ed4bcffaa99557fb",
+        "android_client_info": {
+          "package_name": "com.example.corsiblockapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848588342560-b8qc4laj1ovl6rmm6hugl9o6tf2fhcg2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.corsiblockapp",
+            "certificate_hash": "e4b0396742f762c2394038835a9bfdbd8ffd4987"
+          }
+        },
+        {
+          "client_id": "848588342560-ju08smbs0k6fottape7o5u98an7gv8bn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMJiEL7r6BrgN3EuZCWvQKCCY4LrUaARM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848588342560-ju08smbs0k6fottape7o5u98an7gv8bn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
