@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/green"
     tools:context=".Homepage">
 
     <TextView
@@ -15,8 +15,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="222dp"
         android:text="Corsi Block Game"
-        android:textSize="30dp" />
-
+        android:textSize="30dp"
+        android:textColor="@color/white"/>
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"

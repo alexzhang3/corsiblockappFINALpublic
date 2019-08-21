@@ -114,9 +114,9 @@
         android:id="@+id/myText1"
         android:layout_width="118dp"
         android:layout_height="68dp"
-        android:layout_marginStart="548dp"
-        android:layout_marginLeft="548dp"
-        android:layout_marginBottom="248dp"
+        android:layout_marginStart="536dp"
+        android:layout_marginLeft="536dp"
+        android:layout_marginBottom="264dp"
         android:text="@string/Score"
         android:textColor="#FFEB3B"
         android:textSize="22sp"
@@ -129,7 +129,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="536dp"
         android:layout_marginLeft="536dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="76dp"
         android:text="@string/blockspan"
         android:textColor="#FF5722"
         android:textSize="22sp"
@@ -215,6 +215,15 @@
         android:layout_marginRight="152dp"
         android:layout_marginBottom="16dp"
         android:text="Show Graph"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/dbButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="164dp"
+        android:text="Save Score to Cloud"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

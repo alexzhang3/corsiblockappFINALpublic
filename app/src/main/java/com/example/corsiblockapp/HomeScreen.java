@@ -1,24 +1,45 @@
 package com.example.corsiblockapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Handler;
+import android.renderscript.Sampler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 
 public class HomeScreen extends AppCompatActivity {
+    public static final String TAG = "HomeScreen";
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference myRef;
+    private  String userID;
+    private TreeMap<String, Integer> a;
     public int level = 2;
     public int totalScore = 0;
     public int numCorrectTrials = 0;
@@ -31,7 +52,7 @@ public class HomeScreen extends AppCompatActivity {
     public static int b7 = 0;
     public static int b8 = 0;
     public static int b9 = 0;
-    private Button buttonNotes, buttonLog, buttonGraph;
+    private Button buttonNotes, buttonLog, buttonGraph, buttonDB;
     public static int position = 1;
     private Calendar calendar;
     private String date;
@@ -41,6 +62,30 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        userID = user.getUid();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    toastMessage("Successfully signed in with: " + user.getEmail());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    toastMessage("Successfully signed out.");
+                }
+                // ...
+            }
+
+        };
         final Button myButton1 = (Button) findViewById(R.id.myButton1);
         final Button myButton2 = (Button) findViewById(R.id.myButton2);
         final Button myButton3 = (Button) findViewById(R.id.myButton3);
@@ -59,6 +104,7 @@ public class HomeScreen extends AppCompatActivity {
         buttonNotes = findViewById(R.id.buttonNotes);
         buttonLog = findViewById(R.id.buttonLog);
         buttonGraph = findViewById(R.id.buttonGraph);
+        buttonDB = findViewById(R.id.dbButton);
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("MMddyyyy");
         date = dateFormat.format(calendar.getTime());
@@ -70,6 +116,7 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         buttonLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1589,14 +1636,36 @@ public class HomeScreen extends AppCompatActivity {
                     }
                 }
         );
+        buttonDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
     }
-    public void openNotesPage()
-    {
-        Intent intent = new Intent(this, Notes.class);
-        intent.putExtra("username", getIntent().getStringExtra("username"));
-        intent.putExtra("password", getIntent().getStringExtra("password"));
-        startActivity(intent);
-    }
+        private void showData(DataSnapshot dataSnapshot){
+            String name = "";
+            String age = "";
+            String number = "";
+            TreeMap<String, Integer> scores = new TreeMap<>();
+
+            for (DataSnapshot ds: dataSnapshot.getChildren()){
+                User user = new User();
+                if (ds.child(userID).getValue(User.class).getScores() != null){
+                    ds.child(userID).getValue(User.class).getScores().put(date, totalScore);
+                    scores = ds.child(userID).getValue(User.class).getScores();
+                }
+                name = ds.child(userID).getValue(User.class).getUserName();
+                age = ds.child(userID).getValue(User.class).getUserAge();
+                number = ds.child(userID).getValue(User.class).getUserPhoneNumber();
+
+            }
+
+            scores.put(date, totalScore);
+            User temp = new User(userID, name, age, number, scores);
+            myRef.child(userID).setValue(temp);
+        }
     public void openEmailActivity()
     {
         Intent intent = new Intent(this, EmailActivity.class);
@@ -1604,6 +1673,23 @@ public class HomeScreen extends AppCompatActivity {
         intent.putExtra("blockspan", level + "");
         intent.putExtra("totalScore", totalScore + "");
         startActivity(intent);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 }
 

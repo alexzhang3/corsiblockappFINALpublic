@@ -16,8 +16,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.TreeMap;
+
 public class Database extends AppCompatActivity {
-    private static final String TAG = "AddToDatabase";
+    private static final String TAG = "Database";
 
     private Button mAddToDB, homepageButton;
 
@@ -76,8 +79,10 @@ public class Database extends AppCompatActivity {
         String newName = mName.getText().toString();
         String newNumber = mNumber.getText().toString();
         FirebaseUser user1 = mAuth.getCurrentUser();
+        TreeMap<String, Integer> temp = new TreeMap<>();
+        temp.put("Placeholder", 0);
         String userID = user1.getUid();
-        User user = new User(userID, newName, newAge, newNumber);
+        User user = new User(userID, newName, newAge, newNumber, temp);
         users.child(userID).setValue(user);
         mAge.setText("");
         mName.setText("");
