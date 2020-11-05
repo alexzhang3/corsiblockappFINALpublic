@@ -10,7 +10,10 @@ import android.os.Handler;
 import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -32,7 +35,7 @@ import java.util.HashMap;
 import java.util.TreeMap;
 
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String TAG = "HomeScreen";
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
@@ -75,17 +78,18 @@ public class HomeScreen extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    toastMessage("Successfully signed in with: " + user.getEmail());
                 } else {
                     // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    toastMessage("Successfully signed out.");
                 }
                 // ...
             }
 
         };
+        Spinner spinner = findViewById(R.id.spinner1);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.activities, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         final Button myButton1 = (Button) findViewById(R.id.myButton1);
         final Button myButton2 = (Button) findViewById(R.id.myButton2);
         final Button myButton3 = (Button) findViewById(R.id.myButton3);
@@ -100,22 +104,11 @@ public class HomeScreen extends AppCompatActivity {
         final TextView scoreView = (TextView) findViewById(R.id.myText1);
         final TextView blockSpan = (TextView) findViewById(R.id.myText2);
         final Button restartButton = (Button) findViewById(R.id.restart);
-        final Button emailButton = (Button) findViewById(R.id.emailButton);
-        buttonNotes = findViewById(R.id.buttonNotes);
         buttonLog = findViewById(R.id.buttonLog);
-        buttonGraph = findViewById(R.id.buttonGraph);
-        buttonDB = findViewById(R.id.dbButton);
         calendar = Calendar.getInstance();
+
         dateFormat = new SimpleDateFormat("MMddyyyy");
         date = dateFormat.format(calendar.getTime());
-        buttonGraph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeScreen.this, Graph.class);
-                intent.putExtra("username", getIntent().getStringExtra("username"));
-                startActivity(intent);
-            }
-        });
 
         buttonLog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,24 +157,6 @@ public class HomeScreen extends AppCompatActivity {
                 }
             }
         });
-        emailButton.setOnClickListener(
-                new Button.OnClickListener(){
-                    public void onClick(View v)
-                    {
-                        openEmailActivity();
-                    }
-                }
-        );
-        buttonNotes.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View view) {
-                                               Intent intent = new Intent(HomeScreen.this, Notes.class);
-                                               String a = getIntent().getStringExtra("username");
-                                               intent.putExtra("username", a);
-                                               startActivity(intent);
-                                           }
-                                       }
-        );
         restartButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
@@ -1636,13 +1611,7 @@ public class HomeScreen extends AppCompatActivity {
                     }
                 }
         );
-        buttonDB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-
-            }
-        });
     }
         private void showData(DataSnapshot dataSnapshot){
             String name = "";
@@ -1690,6 +1659,34 @@ public class HomeScreen extends AppCompatActivity {
     }
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String text = adapterView.getItemAtPosition(i).toString();
+
+        if (text.equals("Save To Cloud")) {
+            //TODO: this
+        }
+        else if (text.equals("Email")) {
+            openEmailActivity();
+        }
+        else if (text.equals("Write Notes")) {
+            Intent intent = new Intent(HomeScreen.this, Notes.class);
+            String a = getIntent().getStringExtra("username");
+            intent.putExtra("username", a);
+            startActivity(intent);
+        }
+        else if (text.equals("Graph")) {
+            Intent intent = new Intent(HomeScreen.this, Graph.class);
+            intent.putExtra("username", getIntent().getStringExtra("username"));
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
 

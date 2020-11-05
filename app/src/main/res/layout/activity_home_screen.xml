@@ -116,7 +116,7 @@
         android:layout_height="68dp"
         android:layout_marginStart="536dp"
         android:layout_marginLeft="536dp"
-        android:layout_marginBottom="264dp"
+        android:layout_marginBottom="236dp"
         android:text="@string/Score"
         android:textColor="#FFEB3B"
         android:textSize="22sp"
@@ -129,7 +129,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="536dp"
         android:layout_marginLeft="536dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="160dp"
         android:text="@string/blockspan"
         android:textColor="#FF5722"
         android:textSize="22sp"
@@ -174,32 +174,12 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/emailButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="104dp"
-        android:text="@string/Email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/buttonNotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="52dp"
-        android:text="Write Notes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/buttonLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="172dp"
-        android:layout_marginRight="172dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginRight="124dp"
         android:layout_marginBottom="8dp"
         android:text="Log Scores"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -207,24 +187,16 @@
         app:layout_constraintTop_toBottomOf="@+id/startButton"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/buttonGraph"
+    <Spinner
+        android:id="@+id/spinner1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="152dp"
-        android:layout_marginRight="152dp"
-        android:layout_marginBottom="16dp"
-        android:text="Show Graph"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/dbButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="164dp"
-        android:text="Save Score to Cloud"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="100px"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,5 +10,13 @@
     <color name="black">#000000</color>
     <color name="blue">#0000FF</color>
     <color name="green">#008000</color>
+    
+    <string-array name="activities">
+        <item>Utilities</item>
+        <item>Save To Cloud</item>
+        <item>Email</item>
+        <item>Write Notes</item>
+        <item>Graph</item>
+    </string-array>
 
 </resources>
